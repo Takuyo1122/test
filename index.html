@@ -3,36 +3,73 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Open When - Firebase版</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Open When - 合言葉で開封（Firebase暗号化版）</title>
+  <link rel="stylesheet" href="./style.css" />
+  <script type="module" src="./app.js"></script>
 </head>
 <body>
-  <div id="create" class="card">
-    <h1>Open When ✉️</h1>
-    <label>タイトル</label>
-    <input id="title">
-    <label>本文</label>
-    <textarea id="body"></textarea>
-    <label>開封日時（任意）</label>
-    <input id="unlockAt" type="datetime-local">
-    <label>パスワード（任意）</label>
-    <input id="password" type="password">
-    <div class="buttons">
-      <button id="make" class="btn primary">URLを作成</button>
-      <button id="demo" class="btn ghost">サンプル</button>
+  <div class="wrap">
+    <!-- 作成カード -->
+    <div class="card" id="create">
+      <h1>Open When ✉️</h1>
+      <p class="lead">合言葉で暗号化して保存します。URLは短いIDのみ。合言葉が無いと開けません。</p>
+
+      <label>タイトル</label>
+      <input id="title" placeholder="例：落ち込んだときに開けて" />
+
+      <label>本文</label>
+      <textarea id="body" placeholder="ここに手紙を書いてね"></textarea>
+
+      <div class="row">
+        <div>
+          <label>合言葉（必須・受け取り相手にだけ伝える）</label>
+          <input id="passphrase" type="password" placeholder="合言葉を設定" />
+        </div>
+        <div>
+          <label>開封を許可する日時（任意）</label>
+          <input id="unlockAt" type="datetime-local" />
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn primary" id="make">URLを作成</button>
+        <button class="btn ghost" id="demo">サンプルで試す</button>
+      </div>
+
+      <div id="result" class="hidden">
+        <p class="muted">このURLを相手に送ってください（合言葉は別ルートで伝えてね）：</p>
+        <div class="copybox">
+          <input id="shareUrl" readonly />
+          <button class="btn primary" id="copy">コピー</button>
+        </div>
+        <p class="muted mono" id="note">※ Firestoreには暗号文だけ保存。合言葉は一切保存されません。</p>
+      </div>
     </div>
-    <div id="result" class="hidden">
-      <p>このURLを相手に送ってください：</p>
-      <input id="shareUrl" readonly>
+
+    <!-- 閲覧カード -->
+    <div class="card hidden" id="view">
+      <div id="gate">
+        <h1 id="vtitle">Open When…</h1>
+        <p id="lockinfo" class="muted">合言葉を入力して開封してください。</p>
+        <div id="pwWrap">
+          <label>合言葉</label>
+          <input id="viewPw" type="password" placeholder="合言葉を入力" />
+          <div class="actions">
+            <button class="btn primary" id="open">開封する</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="letter" class="hidden">
+        <h1 id="ltitle"></h1>
+        <article id="lbody" style="white-space:pre-wrap;line-height:1.7"></article>
+        <div class="footer">
+          <span class="pill">クライアント暗号化/復号</span>
+          <span class="pill">Firestoreには暗号文のみ</span>
+          <button class="btn ghost right" id="makeNew">新しく作る</button>
+        </div>
+      </div>
     </div>
   </div>
-
-  <div id="view" class="card hidden">
-    <h1 id="ltitle"></h1>
-    <p id="lbody"></p>
-    <button onclick="location.href=location.pathname" class="btn ghost">新しく作る</button>
-  </div>
-
-  <script type="module" src="app.js"></script>
 </body>
 </html>
