@@ -1,0 +1,62 @@
+:root {
+  --bg:#0b0f14; --card:#121821; --accent:#4da3ff; --muted:#8aa3bf; --text:#eaf2ff;
+}
+
+body {
+  margin:0;
+  font-family:system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  padding:20px;
+}
+
+.card {
+  background:var(--card);
+  border-radius:20px;
+  padding:20px;
+  max-width:600px;
+  width:100%;
+  box-shadow:0 8px 24px rgba(0,0,0,.3);
+  margin-top:20px;
+}
+
+label {
+  display:block;
+  margin-top:12px;
+  font-size:14px;
+  color:var(--muted);
+}
+
+input, textarea {
+  width:100%;
+  padding:10px;
+  margin-top:6px;
+  border-radius:10px;
+  border:1px solid #2a3445;
+  background:#0f141c;
+  color:var(--text);
+}
+
+textarea { min-height:140px; resize:vertical; }
+
+.buttons {
+  margin-top:16px;
+  display:flex;
+  gap:10px;
+}
+
+.btn {
+  padding:10px 16px;
+  border-radius:12px;
+  cursor:pointer;
+  font-weight:bold;
+  border:none;
+}
+
+.primary { background:var(--accent); color:#041020; }
+.ghost { background:transparent; border:1px solid #2a3445; color:var(--text); }
+
+.hidden { display:none; }
